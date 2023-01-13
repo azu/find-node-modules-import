@@ -16,6 +16,10 @@ Install with [npm](https://www.npmjs.com/):
 
     npm install find-node-modules-import --global
 
+Requirement:
+
+- Node.js v16.17.0+ or Node.js v18.6.0+
+
 ## Usage
 
     Usage
