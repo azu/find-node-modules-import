@@ -1,8 +1,12 @@
 import meow from "meow";
-import { filterModulesByModuleNames, findNodeModulesImport } from "./find-node-modules-import.js";
+import {
+    filterModulesByBuiltinModules,
+    filterModulesByModuleNames,
+    findNodeModulesImport,
+    FindNodeModulesImportResult
+} from "./find-node-modules-import.js";
 import { globby } from "globby";
 import * as fs from "node:fs/promises";
-import builtinModules from "builtin-modules";
 
 export const cli = meow(
     `
@@ -48,17 +52,19 @@ export const run = async (
     flags = cli.flags
 ): Promise<{ exitStatus: number; stdout: string | null; stderr: Error | null }> => {
     const files = await globby(input);
-    const targetModuleNames = flags.builtinModules ? builtinModules : flags.module;
-    if (!targetModuleNames) {
-        cli.showHelp();
-        throw new Error("Show Help");
-    }
+    const filter = (results: FindNodeModulesImportResult[]) => {
+        if (flags.builtinModules) {
+            return filterModulesByBuiltinModules(results);
+        } else if (flags.module && flags.module.length > 0) {
+            return filterModulesByModuleNames(results, flags.module);
+        }
+        return results;
+    };
     for (const file of files) {
         try {
             const code = await fs.readFile(file, "utf-8");
             const modules = await findNodeModulesImport(code);
-            const results = filterModulesByModuleNames(modules, targetModuleNames);
-            results.forEach((result) => {
+            filter(modules).forEach((result) => {
                 console.log(`${file}:${result.loc.start.line}:${result.loc.start.column}\t${result.name}`);
             });
         } catch (e) {
