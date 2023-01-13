@@ -1,6 +1,7 @@
 import { init, parse } from "es-module-lexer";
 import { StructuredSource } from "structured-source";
-import builtinModules from "builtin-modules";
+// @ts-expect-error: no types
+import { isBuiltin } from "node:module";
 
 export type FindNodeModulesImportResult = {
     name: string;
@@ -30,6 +31,6 @@ export function filterModulesByModuleNames(modules: FindNodeModulesImportResult[
 
 export function filterModulesByBuiltinModules(modules: FindNodeModulesImportResult[]) {
     return modules.filter((imp) => {
-        return imp.name.startsWith("node:") || builtinModules.includes(imp.name);
+        return imp.name.startsWith("node:") || isBuiltin(imp.name);
     });
 }

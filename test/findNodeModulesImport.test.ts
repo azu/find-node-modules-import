@@ -1,7 +1,50 @@
 import { findNodeModulesImport } from "../src/find-node-modules-import.js";
 import assert from "node:assert";
+import { filterModulesByBuiltinModules } from "../lib/find-node-modules-import.js";
 
 describe("findNodeModulesImport", function () {
+    it("filterModulesByBuiltinModules filter only builtin modules", async function () {
+        const result = await findNodeModulesImport(
+            `\
+import foo from "foo"
+;import assert from 'node:assert'
+import fs from "fs";
+
+type A = string; // It is typescript
+`
+        );
+        let filterd = filterModulesByBuiltinModules(result);
+        assert.deepStrictEqual(filterd, [
+            {
+                name: "node:assert",
+                range: [43, 54],
+                loc: {
+                    start: {
+                        line: 2,
+                        column: 21
+                    },
+                    end: {
+                        line: 2,
+                        column: 32
+                    }
+                }
+            },
+            {
+                name: "fs",
+                range: [72, 74],
+                loc: {
+                    start: {
+                        line: 3,
+                        column: 16
+                    },
+                    end: {
+                        line: 3,
+                        column: 18
+                    }
+                }
+            }
+        ]);
+    });
     it("should find node:prefix", async function () {
         const result = await findNodeModulesImport(
             `\
