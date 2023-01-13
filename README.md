@@ -1,16 +1,37 @@
 # find-node-modules-import
 
-Find specific node modules import statement in your source code
+Find specific node modules import statement in your source code.
+
+## Features
+
+- Find all imported module name
+- Find specific module name
+- Find Node.js built-in module name like `node:fs` or `assert`
+
+📝 This tool only support `import` syntax. `require` syntax is not supported.
 
 ## Install
 
 Install with [npm](https://www.npmjs.com/):
 
-    npm install find-node-modules-import
+    npm install find-node-modules-import --global
 
 ## Usage
 
-- [ ] Write usage instructions
+    Usage
+      $ npx find-node-modules-import [file|glob*]
+ 
+    Options
+      --module          [String] filter the result by module name
+      --builtinModules      [Boolean] filter the result by Node.js builtin modules. Default: false
+
+    Examples
+      # show all imports
+      $ find-node-modules-import "src/**/*.{js, ts}"
+      # show Node.js builtin modules
+      $ find-node-modules-import "src/**/*.{js, ts}" --builtinModules
+      # show specific module
+      $ find-node-modules-import "src/**/*.{js, ts}" --module "lodash"
 
 ## Changelog
 
