@@ -1,6 +1,6 @@
 {
   "name": "find-node-modules-import",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Find specific node modules import statement in your source code",
   "type": "module",
   "keywords": [
