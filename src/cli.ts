@@ -14,8 +14,9 @@ export const cli = meow(
       $ find-node-modules-import [file|glob*]
  
     Options
-      --module          [String] filter the result by module name
+      --module              [String] filter the result by module name
       --builtinModules      [Boolean] filter the result by Node.js builtin modules. Default: false
+      --verbose             [Boolean] show warning/error output. Default: false
 
     Examples
       # show all imports
@@ -40,6 +41,10 @@ export const cli = meow(
             format: {
                 type: "string",
                 default: "compat"
+            },
+            verbose: {
+                type: "boolean",
+                default: false
             }
         },
         autoHelp: true,
@@ -68,7 +73,9 @@ export const run = async (
                 console.log(`${file}:${result.loc.start.line}:${result.loc.start.column}\t${result.name}`);
             });
         } catch (e) {
-            console.warn("Skip file", file, e);
+            if (flags.verbose) {
+                console.error("Skip file", file, e);
+            }
         }
     }
     return { exitStatus: 0, stdout: null, stderr: null };

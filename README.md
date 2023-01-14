@@ -23,11 +23,12 @@ Requirement:
 ## Usage
 
     Usage
-      $ npx find-node-modules-import [file|glob*]
+      $ find-node-modules-import [file|glob*]
  
     Options
-      --module          [String] filter the result by module name
+      --module              [String] filter the result by module name
       --builtinModules      [Boolean] filter the result by Node.js builtin modules. Default: false
+      --verbose             [Boolean] show warning/error output. Default: false
 
     Examples
       # show all imports
@@ -36,6 +37,8 @@ Requirement:
       $ find-node-modules-import "src/**/*.{js, ts}" --builtinModules
       # show specific module
       $ find-node-modules-import "src/**/*.{js, ts}" --module "lodash"
+
+
 
 ## Changelog
 

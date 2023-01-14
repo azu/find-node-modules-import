@@ -1,6 +1,5 @@
-import { findNodeModulesImport } from "../src/find-node-modules-import.js";
+import { findNodeModulesImport, filterModulesByBuiltinModules } from "../src/find-node-modules-import.js";
 import assert from "node:assert";
-import { filterModulesByBuiltinModules } from "../lib/find-node-modules-import.js";
 
 describe("findNodeModulesImport", function () {
     it("filterModulesByBuiltinModules filter only builtin modules", async function () {
