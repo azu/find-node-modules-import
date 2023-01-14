@@ -14,8 +14,9 @@ export const cli = meow(
       $ find-node-modules-import [file|glob*]
  
     Options
-      --module          [String] filter the result by module name
+      --module              [String] filter the result by module name
       --builtinModules      [Boolean] filter the result by Node.js builtin modules. Default: false
+      --verbose             [Boolean] show warning/error output. Default: false
 
     Examples
       # show all imports
@@ -73,7 +74,7 @@ export const run = async (
             });
         } catch (e) {
             if (flags.verbose) {
-                console.warn("Skip file", file, e);
+                console.error("Skip file", file, e);
             }
         }
     }
