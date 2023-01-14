@@ -40,6 +40,10 @@ export const cli = meow(
             format: {
                 type: "string",
                 default: "compat"
+            },
+            verbose: {
+                type: "boolean",
+                default: false
             }
         },
         autoHelp: true,
@@ -68,7 +72,9 @@ export const run = async (
                 console.log(`${file}:${result.loc.start.line}:${result.loc.start.column}\t${result.name}`);
             });
         } catch (e) {
-            console.warn("Skip file", file, e);
+            if (flags.verbose) {
+                console.warn("Skip file", file, e);
+            }
         }
     }
     return { exitStatus: 0, stdout: null, stderr: null };
