@@ -39,7 +39,7 @@
   ],
   "scripts": {
     "build": "tsc -p .",
-    "clean": "rimraf lib/ module/",
+    "clean": "git clean -fx lib/ module/",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\"",
     "prepare": "git config --local core.hooksPath .githooks",
     "prepublishOnly": "npm run clean && npm run build",
@@ -63,7 +63,6 @@
     "lint-staged": "^13.1.0",
     "mocha": "^10.2.0",
     "prettier": "^2.8.2",
-    "rimraf": "^4.0.4",
     "ts-node": "^10.9.1",
     "ts-node-test-register": "^10.0.0",
     "typescript": "^4.9.4"
