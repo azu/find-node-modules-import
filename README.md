@@ -32,11 +32,11 @@ Requirement:
 
     Examples
       # show all imports
-      $ find-node-modules-import "src/**/*.{js, ts}"
+      $ find-node-modules-import "src/**/*.{js,ts}"
       # show Node.js builtin modules
-      $ find-node-modules-import "src/**/*.{js, ts}" --builtinModules
+      $ find-node-modules-import "src/**/*.{js,ts}" --builtinModules
       # show specific module
-      $ find-node-modules-import "src/**/*.{js, ts}" --module "lodash"
+      $ find-node-modules-import "src/**/*.{js,ts}" --module "lodash"
 
 
 
